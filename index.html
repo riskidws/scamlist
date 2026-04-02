@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
@@ -91,7 +91,7 @@
 
         .keterangan-row { margin-bottom: 15px; }
         .keterangan-text { color: var(--primary-danger); background-color: #fff8f8; padding: 12px; border-radius: 8px; font-size: 14px; font-weight: 500; border-left: 3px solid var(--primary-danger); }
-        .card-footer { display: flex; justify-content: space-between; align-items: center; padding-top: 15px; border-top: 1px solid #f0f0f0; font-size: 13px; margin-top: 15px; }
+        .card-footer { display: flex; justify-content: space-between; align-items: flex-start; padding-top: 15px; border-top: 1px solid #f0f0f0; font-size: 13px; margin-top: 15px; }
         .sumber-link { text-decoration: none; color: #0056b3; font-weight: 600; display: flex; align-items: center; gap: 5px; }
         .sumber-link:hover { text-decoration: underline; }
         .sumber-text-only { color: var(--text-muted); }
@@ -153,12 +153,11 @@
     </div>
 
     <script>
-        // LINK APPS SCRIPT ANDA SUDAH TERPASANG DI SINI
-        const URL_GOOGLE_SHEET = "https://script.google.com/macros/s/AKfycbw3N2MJgxpEImx3fnRemFUD8NL-yzFy0kdaarceoh6SuGFL2HLbvo1-tLMYSwy29BQMcA/exec";
+        // SEKARANG MENGGUNAKAN JALUR INTERNAL CLOUDFLARE
+        const URL_GOOGLE_SHEET = "/api";
         
         let dataScammer = [];
 
-        // FUNGSI UNTUK MENARIK DATA DARI GOOGLE SHEETS
         async function ambilData() {
             const container = document.getElementById('dataContainer');
             container.innerHTML = '<div class="no-data"><i class="fas fa-spinner fa-spin" style="font-size:30px; margin-bottom:10px; display:block; color:var(--primary-danger);"></i>Memuat data terbaru...</div>';
@@ -166,12 +165,10 @@
             try {
                 const response = await fetch(URL_GOOGLE_SHEET);
                 dataScammer = await response.json();
-                
                 dataScammer.reverse(); 
-
                 tampilkanData(dataScammer, false);
             } catch (error) {
-                container.innerHTML = '<div class="no-data" style="color:red;"><i class="fas fa-exclamation-triangle" style="font-size:30px; margin-bottom:10px; display:block;"></i>Gagal memuat data. Periksa koneksi internet.</div>';
+                container.innerHTML = '<div class="no-data" style="color:red;"><i class="fas fa-exclamation-triangle" style="font-size:30px; margin-bottom:10px; display:block;"></i>Gagal memuat data dari server aman.</div>';
             }
         }
 
@@ -217,6 +214,19 @@
                     blokPembayaran += `</div>`;
                 }
 
+                // Logika merapikan format tanggal
+                let tanggalTampil = "-";
+                if (item.tanggal_input) {
+                    let dateObj = new Date(item.tanggal_input);
+                    if (!isNaN(dateObj.getTime())) {
+                        tanggalTampil = dateObj.toLocaleDateString('id-ID', {
+                            day: '2-digit', month: 'short', year: 'numeric'
+                        });
+                    } else {
+                        tanggalTampil = item.tanggal_input;
+                    }
+                }
+
                 const card = document.createElement('div');
                 card.className = 'card';
                 card.innerHTML = `
@@ -246,7 +256,7 @@
                             <div class="sumber-wrapper"><span class="label-micro">Sumber</span> ${formatSumber}</div>
                             <div class="tanggal-wrapper" style="text-align:right;">
                                 <span class="label-micro">Dilaporkan</span>
-                                <span style="color:#777; font-weight:500;">${item.tanggal_input || "-"}</span>
+                                <span style="color:#777; font-weight:500;">${tanggalTampil}</span>
                             </div>
                         </div>
                     </div>
@@ -280,7 +290,6 @@
         function tutupModal() { modal.style.display = 'none'; }
         function tutupModalLuar(event) { if (event.target === modal) { tutupModal(); } }
 
-        // Memicu pengambilan data saat web dibuka
         ambilData();
     </script>
 </body>
