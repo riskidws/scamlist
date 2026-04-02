@@ -112,7 +112,7 @@
         .modal-close { position: absolute; top: 15px; right: 20px; font-size: 24px; color: var(--text-sub); cursor: pointer; border: none; background: none; }
         .modal-close:hover { color: var(--primary-danger); }
         .modal-title { font-size: 18px; font-weight: 700; margin-top: 0; margin-bottom: 15px; color: var(--text-dark); }
-        .modal-content p { font-size: 14px; color: var(--text-muted); margin-bottom: 10px; }
+        .modal-content p { font-size: 14px; color: var(--text-muted); margin-bottom: 10px; line-height: 1.6; }
     </style>
 </head>
 <body>
@@ -132,8 +132,8 @@
             </div>
 
         <footer class="site-footer">
-            <a href="mailto:pengaduan@rds.my.id" class="footer-item">
-                <i class="fas fa-envelope"></i> Laporkan Kasus
+            <a href="mailto:scamtracker.x@gmail.com" class="footer-item">
+                <i class="fas fa-envelope"></i> Hubungi Pengelola
             </a>
             <span class="footer-divider">|</span>
             <div class="footer-item" onclick="bukaModal()">
@@ -145,17 +145,32 @@
     <div class="modal-overlay" id="tncModal" onclick="tutupModalLuar(event)">
         <div class="modal-box">
             <button class="modal-close" onclick="tutupModal()">&times;</button>
-            <h2 class="modal-title">Syarat & Ketentuan (T&C)</h2>
+            <h2 class="modal-title">Syarat & Ketentuan (Disclaimer)</h2>
             <div class="modal-content">
-                <p>1. Data yang disajikan di website ini dikumpulkan dari laporan publik dan pelapor independen.</p>
-                <p>2. Kami tidak bertanggung jawab penuh atas kerugian yang diakibatkan oleh transaksi, baik yang ada di dalam maupun di luar daftar ini.</p>
-                <p>3. Pengunjung diwajibkan untuk tetap memverifikasi silang bukti-bukti yang terlampir di kolom sumber.</p>
+                <p style="font-size: 13px; color: var(--primary-danger); font-weight: bold; margin-bottom: 15px; padding: 10px; background-color: #fff8f8; border-radius: 8px; border-left: 3px solid var(--primary-danger);">
+                    Dengan mengakses website ini, Anda dianggap telah membaca, memahami, dan menyetujui seluruh syarat dan ketentuan di bawah ini.
+                </p>
+
+                <p><strong>1. Status Website Sebagai Agregator</strong><br>
+                Website ini berfungsi murni sebagai agregator (pengumpul) dan pengindeks informasi. Data scammer yang dicantumkan merupakan hasil kurasi dari laporan, utas (thread), atau klaim yang <strong>sudah beredar secara terbuka di ruang publik</strong> (seperti media sosial X/Twitter). Pengelola website bukanlah pembuat laporan asli dan tidak bertindak sebagai pihak yang menuduh.</p>
+
+                <p><strong>2. Kewajiban Verifikasi Mandiri (Do Your Own Research)</strong><br>
+                Daftar ini ditujukan semata-mata sebagai referensi dan Peringatan Dini (Early Warning). Pengelola mengumpulkan tautan bukti/sumber, namun <strong>tidak dapat memverifikasi kebenaran mutlak</strong> dari setiap klaim yang ada di sumber tersebut. Pengunjung diwajibkan untuk memeriksa silang validitas bukti secara mandiri. Pengelola tidak bertanggung jawab atas segala bentuk kerugian material maupun imaterial akibat keputusan transaksi Anda.</p>
+
+                <p><strong>3. Pelepasan Tanggung Jawab Hukum (Disclaimer Hak ITE)</strong><br>
+                Atas dasar iktikad baik untuk kepentingan umum (mencegah penipuan online), pengelola website dibebaskan dari segala tuntutan hukum, gugatan perdata, maupun pidana (termasuk UU ITE terkait pencemaran nama baik). Tanggung jawab atas materi tuduhan atau klaim sepenuhnya berada pada individu/akun pembuat laporan pertama di tautan sumber aslinya.</p>
+
+                <p><strong>4. Larangan Penyalahgunaan Data (Anti-Doxing & Persekusi)</strong><br>
+                Pengunjung dilarang keras menggunakan kumpulan informasi di website ini untuk melakukan tindakan main hakim sendiri, persekusi, ancaman, atau penyebaran data pribadi yang melanggar hukum (Doxing). Data ini disediakan <strong>hanya</strong> untuk keperluan preventif (membatalkan atau menghindari transaksi yang mencurigakan).</p>
+
+                <p><strong>5. Hak Jawab dan Kebijakan Penghapusan (Takedown Policy)</strong><br>
+                Kami menghormati asas praduga tak bersalah dan hak privasi. Jika nama, nomor, atau rekening Anda tercantum di sini akibat kekeliruan laporan, klaim palsu, atau jika kasus telah diselesaikan secara damai (telah dilakukan refund/ganti rugi kepada pelapor), Anda memiliki <strong>Hak Jawab</strong>. Anda dapat mengajukan permohonan penghapusan data dengan mengirimkan bukti valid penyelesaian masalah ke email: <strong>scamtracker.x@gmail.com</strong>.</p>
             </div>
         </div>
     </div>
 
     <script>
-        // SEKARANG MENGGUNAKAN JALUR INTERNAL CLOUDFLARE
+        // MENGGUNAKAN JALUR INTERNAL CLOUDFLARE
         const URL_GOOGLE_SHEET = "/api";
         
         let dataScammer = [];
